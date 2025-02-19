@@ -18,17 +18,19 @@ namespace Persons
             try
             {
                 // Вызов метода создания двух списков
-                _CreatePersonLists();
+                CreatePersonLists();
             }
             catch (ArgumentException ex)
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
+
             // Вызов метода ввода данных с клавиатуры
-            Person person1 = _ReadFromKeyboard();
+            Person person1 = ReadFromKeyboard();
             Console.WriteLine(person1.GetInfo());
+
             // Вызов метода создания случайной персоны
-            _RandomCreatePerson();
+            RandomCreatePerson();
             Console.WriteLine("\nПрограмма завершена.");
 
         }
@@ -36,7 +38,7 @@ namespace Persons
         /// <summary>
         /// Метод считывает данные о человеке с клавиатуры.
         /// </summary>
-        public static Person _ReadFromKeyboard()
+        public static Person ReadFromKeyboard()
 
         {
             string firstName;
@@ -89,7 +91,7 @@ namespace Persons
                 strAge = Console.ReadLine();
                 try
                 {
-                    age = _AgeVerification(strAge);
+                    age = AgeVerification(strAge);
                     break;
                 }
                 catch (ArgumentException ex)
@@ -105,7 +107,7 @@ namespace Persons
                 genderString = Console.ReadLine();
                 try
                 {
-                    _GendorVerification(genderString);
+                    GendorVerification(genderString);
                     break;
                 }
                 catch (ArgumentException ex)
@@ -114,7 +116,7 @@ namespace Persons
                     Console.WriteLine("Попробуйте еще раз.");
                 }
             }
-            gender = _NumToGender(genderString);
+            gender = NumToGender(genderString);
 
             return new Person(firstName, lastName, age, gender);
         }
@@ -122,7 +124,7 @@ namespace Persons
         /// <summary>
         /// Метод создает два списка PersonList.
         /// </summary>
-        private static void _CreatePersonLists()
+        private static void CreatePersonLists()
         {
             // Пункт задания "a"
             Console.WriteLine("Нажмите любую клавишу, чтобы создать два списка персон.");
@@ -187,7 +189,7 @@ namespace Persons
         /// <summary>
         /// Метод создает случайного человека.
         /// </summary>
-        private static void _RandomCreatePerson()
+        private static void RandomCreatePerson()
         {
             Console.WriteLine("\nНажмите любую клавишу, чтобы создать случайную персону.");
             Console.ReadKey();
@@ -207,7 +209,7 @@ namespace Persons
         /// <summary>
         /// Метод преобразования строки в тип перечисления.
         /// </summary>
-        private static Gender _NumToGender(string strGender)
+        private static Gender NumToGender(string strGender)
         {
             switch (strGender.ToLower())
             {
@@ -223,7 +225,7 @@ namespace Persons
         /// <summary>
         /// Метод проверки введенного пола.
         /// </summary>
-        private static void _GendorVerification(string genderString)
+        private static void GendorVerification(string genderString)
         {
             string lowerGender = genderString.ToLower();
             if (lowerGender != "male" && lowerGender != "female" && lowerGender != "other")
@@ -245,7 +247,7 @@ namespace Persons
         /// <summary>
         /// Метод проверки введенного возраста.
         /// </summary>
-        private static int _AgeVerification(string strAge)
+        private static int AgeVerification(string strAge)
         {
             if (!int.TryParse(strAge, out int age) || age < MinAge || age >= MaxAge)
             {

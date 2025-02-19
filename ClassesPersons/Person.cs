@@ -13,31 +13,34 @@ namespace ClassPerson
         /// <summary>
         /// Имя персоны.
         /// </summary>
-        private string _FirstName;
+        private string _firstName;
+
         /// <summary>
         /// Фамилия персоны.
         /// </summary>
-        private string _LastName;
+        private string _lastName;
+
         /// <summary>
         /// Возраст персоны.
         /// </summary>
-        private int _Age;
+        private int _age;
+
         /// <summary>
         /// Пол персоны.
         /// </summary>
-        private Gender _Gender;
+        private Gender _gender;
 
         /// <summary>
         /// Свойство для получения и установки имени.
         /// </summary>
         public string FirstName
         {
-            get => _FirstName;
+            get => _firstName;
             set
             {
                 NameVerification(value);
                 // Преобразования имени к нужному регистру
-                _FirstName = _FormatName(value);
+                _firstName = FormatName(value);
             }
         }
 
@@ -46,34 +49,36 @@ namespace ClassPerson
         /// </summary>
         public string LastName
         {
-            get => _LastName;
+            get => _lastName;
             set
             {
                 LastNameVerification(value);
                 CheckLanguage(FirstName, value);
                 // Преобразования фамилии к нужному регистру
-                _LastName = _FormatName(value);
+                _lastName = FormatName(value);
             }
         }
+
         /// <summary>
         /// Свойство для получения и установки возраста.
         /// </summary>
         public int Age
         {
-            get => _Age;
+            get => _age;
             set
             {
-                _AgeVerification(value);
-                _Age = value;
+                AgeVerification(value);
+                _age = value;
             }
         }
+
         /// <summary>
         /// Свойство для получения и установки пола.
         /// </summary>
         public Gender Gender
         {
-            get => _Gender;
-            set => _Gender = value;
+            get => _gender;
+            set => _gender = value;
         }
 
         /// <summary>
@@ -103,7 +108,7 @@ namespace ClassPerson
         /// <summary>
         /// Регулярное выражение для проверки имени и фамилии.
         /// </summary>
-        private static readonly Regex _NameRegex = new Regex(@"^[a-zA-Zа-яА-Я]+(-[a-zA-Zа-яА-Я]+)?$", RegexOptions.Compiled);
+        private static readonly Regex NameRegex = new Regex(@"^[a-zA-Zа-яА-Я]+(-[a-zA-Zа-яА-Я]+)?$", RegexOptions.Compiled);
 
         /// <summary>
         /// Метод проверки имени на соответствие заданным критериям.
@@ -116,7 +121,7 @@ namespace ClassPerson
             {
                 throw new ArgumentException("Имя не может быть пустым, состоять из пробелов или null.", nameof(firstName));
             }
-            if (!_NameRegex.IsMatch(firstName))
+            if (!NameRegex.IsMatch(firstName))
             {
                 throw new ArgumentException("Имя должно содержать только буквы русского или английского алфавита. Двойное имя содержит один символ тире.", nameof(firstName));
             }
@@ -132,7 +137,7 @@ namespace ClassPerson
             {
                 throw new ArgumentException("Фамилия не может быть пустой, состоять из пробелов или null.", nameof(lastName));
             }
-            if (!_NameRegex.IsMatch(lastName))
+            if (!NameRegex.IsMatch(lastName))
             {
                 throw new ArgumentException("Фамилия должна содержать только буквы русского или английского алфавита. Двойная фамилия содержит один символ тире.", nameof(lastName));
             }
@@ -152,7 +157,7 @@ namespace ClassPerson
         /// Метод проверки возраста на соответствие допустимому диапазону.
         /// </summary>
         /// <param name="age">Возраст для проверки.</param>
-        private void _AgeVerification(int age)
+        private void AgeVerification(int age)
         {
             if (age < MinAge || age >= MaxAge)
             {
@@ -165,7 +170,7 @@ namespace ClassPerson
         /// Преобразует строку таким образом, что первая буква всегда большая.
         /// </summary>
         /// <param name="word">Строка для преобразования.</param>
-        private static string _FormatName(string word)
+        private static string FormatName(string word)
         {
             return CultureInfo.CurrentCulture.TextInfo.
                 ToTitleCase(word.ToLower());
