@@ -26,8 +26,8 @@ namespace Persons
             }
 
             // Вызов метода ввода данных с клавиатуры
-            Person person1 = ReadFromKeyboard();
-            Console.WriteLine(person1.GetInfo());
+            Person person = ReadFromKeyboard();
+            Console.WriteLine(person.GetInfo());
 
             // Вызов метода создания случайной персоны
             RandomCreatePerson();
@@ -38,8 +38,8 @@ namespace Persons
         /// <summary>
         /// Метод считывает данные о человеке с клавиатуры.
         /// </summary>
+        /// //TODO: XML
         public static Person ReadFromKeyboard()
-
         {
             string firstName;
             string lastName;
@@ -50,6 +50,7 @@ namespace Persons
             string firstNameCorrect;
             string lastNameCorrect;
 
+            //TODO: duplication
             Console.WriteLine("Введите имя человека.");
             while (true)
             {
@@ -66,6 +67,7 @@ namespace Persons
                 }
             }
             firstName = firstNameCorrect;
+
 
             Console.WriteLine("Введите фамилию человека.");
             while (true)
@@ -149,6 +151,7 @@ namespace Persons
             Console.WriteLine("Список 2:");
             list2.PrintList();
             Console.WriteLine("\n\n");
+
             // Пуннкт задания "c"
             Console.WriteLine("Нажмите любую клавишу, чтобы добавить нового человека в первый список.");
             Console.ReadKey();
@@ -157,6 +160,7 @@ namespace Persons
             Console.WriteLine("\n\nСписок 1:");
             list1.PrintList();
             Console.WriteLine("\n\n");
+
             // Пункст задания "d"
             Console.WriteLine("Нажмите любую клавишу, чтобы скопировать второго человека из первого списка в конец второго списка.");
             Console.ReadKey();
@@ -167,6 +171,7 @@ namespace Persons
             Console.WriteLine("Список 2:");
             list2.PrintList();
             Console.WriteLine("\n\n");
+
             // Пункт задания "e"
             Console.WriteLine("Нажмите любую клавишу, чтобы удалить человека из первого списка.");
             Console.ReadKey();
@@ -177,6 +182,7 @@ namespace Persons
             Console.WriteLine("Список 2:");
             list2.PrintList();
             Console.WriteLine("\n\n");
+
             // Пункт задания "f"
             Console.WriteLine("Нажмите любую клавишу, чтобы очистить второй список.");
             Console.ReadKey();
@@ -235,21 +241,11 @@ namespace Persons
         }
 
         /// <summary>
-        /// Минимальный допустимый возраст.
-        /// </summary>
-        private const int MinAge = 0;
-
-        /// <summary>
-        /// Максимальный допустимый возраст.
-        /// </summary>
-        private const int MaxAge = 125;
-
-        /// <summary>
         /// Метод проверки введенного возраста.
         /// </summary>
         private static int AgeVerification(string strAge)
         {
-            if (!int.TryParse(strAge, out int age) || age < MinAge || age >= MaxAge)
+            if (!int.TryParse(strAge, out int age))
             {
                 throw new ArgumentException("Возраст не должен содержать посторонних символов, а должен быть целым числом больше 0.", nameof(strAge));
             }

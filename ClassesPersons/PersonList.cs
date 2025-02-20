@@ -1,6 +1,4 @@
-﻿
-
-namespace ClassPerson
+﻿namespace ClassPerson
 {
     /// <summary>
     /// Класс, представляющий список экземпляров Person.
@@ -10,6 +8,7 @@ namespace ClassPerson
         /// <summary>
         /// Список экземпляров Person.
         /// </summary>
+        /// //TODO: RSDN
         private List<Person> people = new List<Person>();
 
         /// <summary>
@@ -33,6 +32,7 @@ namespace ClassPerson
         /// </summary>
         public void RemoveIndex(int index)
         {
+            //TODO: duplication
             if (index < 0 || index >= people.Count)
             {
                 throw new IndexOutOfRangeException("Индекс вне диапазона.");
@@ -45,6 +45,7 @@ namespace ClassPerson
         /// </summary>
         public Person GetIndex(int index)
         {
+            //TODO: duplication
             if (index >= people.Count || index < 0)
             {
                 throw new IndexOutOfRangeException("Индекс вне диапазона.");
@@ -73,6 +74,7 @@ namespace ClassPerson
         /// </summary>
         public int Count => people.Count;
 
+        //TODO: remove
         /// <summary>
         /// Метод получения элементов в списке.
         /// </summary>
