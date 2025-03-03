@@ -41,86 +41,63 @@ namespace Persons
         /// //TODO: XML
         public static Person ReadFromKeyboard()
         {
-            string firstName;
-            string lastName;
-            int age;
-            Gender gender;
-            string genderString;
-            string strAge;
-            string firstNameCorrect;
-            string lastNameCorrect;
+            //TODO: duplication +
 
-            //TODO: duplication
-            Console.WriteLine("Введите имя человека.");
-            while (true)
+            Person personReader = new Person();
+
+            var actionList = new List<PropertyHandler>
             {
-                firstNameCorrect = Console.ReadLine();
-                try
-                {
-                    Person.NameVerification(firstNameCorrect);
-                    break;
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Попробуйте еще раз.");
-                }
-            }
-            firstName = firstNameCorrect;
+                new PropertyHandler(
+                    "имя",
+                    new List<Type>
+                    {
+                        typeof(ArgumentException),
+                        typeof(FormatException),
+                    },
+                    () => { personReader.FirstName = Console.ReadLine(); }
+                    ),
+                new PropertyHandler(
+                    "фамилию",
+                    new List<Type>
+                    {
+                        typeof(ArgumentException),
+                        typeof(FormatException),
+                    },
+                    () => { personReader.LastName = Console.ReadLine(); }
+                    ),
+                new PropertyHandler(
+                    "возраст",
+                    new List<Type>
+                    {
+                        typeof(IndexOutOfRangeException),
+                        typeof(FormatException),
+                    },
+                    () =>
+                    {
+                        string strAge = Console.ReadLine();
+                        AgeVerification(strAge);
+                        personReader.Age = Convert.ToInt32(strAge);
+                    }),
+                new PropertyHandler(
+                    "пол",
+                    new List<Type>
+                    {
+                        typeof(ArgumentException),
+                    },
+                    () => 
+                    {
 
+                        string GenderString = Console.ReadLine();
+                        GendorVerification(GenderString);
+                        personReader.Gender = NumToGender(GenderString); 
+                    }),
+            };
 
-            Console.WriteLine("Введите фамилию человека.");
-            while (true)
+            for (int i = 0; i < actionList.Count; i++)
             {
-                lastNameCorrect = Console.ReadLine();
-                try
-                {
-                    Person.LastNameVerification(lastNameCorrect);
-                    Person.CheckLanguage(firstName, lastNameCorrect);
-                    break;
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Попробуйте еще раз.");
-                }
+                PersonPropertiesHandler(actionList[i]);
             }
-            lastName = lastNameCorrect;
-
-            Console.WriteLine("Введите возраст человека.");
-            while (true)
-            {
-                strAge = Console.ReadLine();
-                try
-                {
-                    age = AgeVerification(strAge);
-                    break;
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Попробуйте еще раз.");
-                }
-            }
-
-            Console.WriteLine("Введите пол человека из списка: Male, Female, Other. Регистр не важен.");
-            while (true)
-            {
-                genderString = Console.ReadLine();
-                try
-                {
-                    GendorVerification(genderString);
-                    break;
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine("Попробуйте еще раз.");
-                }
-            }
-            gender = NumToGender(genderString);
-
-            return new Person(firstName, lastName, age, gender);
+            return personReader;
         }
 
         /// <summary>
@@ -129,7 +106,8 @@ namespace Persons
         private static void CreatePersonLists()
         {
             // Пункт задания "a"
-            Console.WriteLine("Нажмите любую клавишу, чтобы создать два списка персон.");
+            Console.WriteLine("Нажмите любую клавишу, " +
+                "чтобы создать два списка персон.");
             Console.ReadKey();
             Console.WriteLine();
             PersonList list1 = new PersonList();
@@ -143,53 +121,58 @@ namespace Persons
             list2.AddList(new Person("Aleksandra", "Medmon", 26, Gender.Female));
             list2.AddList(new Person("Molli", "Kaum", 17, Gender.Female));
             // Пункт задания "b"
-            Console.WriteLine("Нажмите любую клавишу, чтобы отобразить содержимое списков.");
+            Console.WriteLine("Нажмите любую клавишу, чтобы отобразить " +
+                "содержимое списков.");
             Console.ReadKey();
             Console.WriteLine();
             Console.WriteLine("\n\nСписок 1:");
-            list1.PrintList();
+            PrintList(list1);
             Console.WriteLine("Список 2:");
-            list2.PrintList();
+            PrintList(list2);
             Console.WriteLine("\n\n");
 
             // Пуннкт задания "c"
-            Console.WriteLine("Нажмите любую клавишу, чтобы добавить нового человека в первый список.");
+            Console.WriteLine("Нажмите любую клавишу, чтобы добавить нового " +
+                "человека в первый список.");
             Console.ReadKey();
             Console.WriteLine();
             list1.AddList(new Person("Певел", "Арефьев", 23, Gender.Male));
             Console.WriteLine("\n\nСписок 1:");
-            list1.PrintList();
+            PrintList(list1);
             Console.WriteLine("\n\n");
 
             // Пункст задания "d"
-            Console.WriteLine("Нажмите любую клавишу, чтобы скопировать второго человека из первого списка в конец второго списка.");
+            Console.WriteLine("Нажмите любую клавишу, чтобы скопировать " +
+                "второго человека из первого списка в конец второго списка.");
             Console.ReadKey();
             Console.WriteLine();
             list2.AddList(list1.GetIndex(1));
             Console.WriteLine("\n\nСписок 1:");
-            list1.PrintList();
+            PrintList(list1);
             Console.WriteLine("Список 2:");
-            list2.PrintList();
+            PrintList(list2);
             Console.WriteLine("\n\n");
 
             // Пункт задания "e"
-            Console.WriteLine("Нажмите любую клавишу, чтобы удалить человека из первого списка.");
+            Console.WriteLine("Нажмите любую клавишу, чтобы " +
+                "удалить человека из первого списка.");
             Console.ReadKey();
             Console.WriteLine();
             list1.RemoveList(list1.GetIndex(1));
             Console.WriteLine("\n\nСписок 1:");
-            list1.PrintList();
+            PrintList(list1);
             Console.WriteLine("Список 2:");
-            list2.PrintList();
+            PrintList(list2);
             Console.WriteLine("\n\n");
 
             // Пункт задания "f"
-            Console.WriteLine("Нажмите любую клавишу, чтобы очистить второй список.");
+            Console.WriteLine("Нажмите любую клавишу, чтобы очистить " +
+                "второй список.");
             Console.ReadKey();
             Console.WriteLine();
             list2.ClearList();
             Console.WriteLine("\n\nСписок 2:");
-            list2.PrintList();
+            PrintList(list2);
         }
 
         /// <summary>
@@ -197,7 +180,8 @@ namespace Persons
         /// </summary>
         private static void RandomCreatePerson()
         {
-            Console.WriteLine("\nНажмите любую клавишу, чтобы создать случайную персону.");
+            Console.WriteLine("\nНажмите любую клавишу, " +
+                "чтобы создать случайную персону.");
             Console.ReadKey();
             Console.WriteLine();
 
@@ -234,9 +218,13 @@ namespace Persons
         private static void GendorVerification(string genderString)
         {
             string lowerGender = genderString.ToLower();
-            if (lowerGender != "male" && lowerGender != "female" && lowerGender != "other")
+            if (lowerGender != "male" 
+                && lowerGender != "female" 
+                && lowerGender != "other")
             {
-                throw new ArgumentException("Неверный ввод пола.  Попробуйте ещё раз. Введите пол человека из списка: Male, Female, Other. Регистр не важен.");
+                throw new ArgumentException("Неверный ввод пола. " +
+                    "Попробуйте ещё раз. Введите пол человека из " +
+                    "списка: Male, Female, Other. Регистр не важен.");
             }
         }
 
@@ -247,9 +235,57 @@ namespace Persons
         {
             if (!int.TryParse(strAge, out int age))
             {
-                throw new ArgumentException("Возраст не должен содержать посторонних символов, а должен быть целым числом больше 0.", nameof(strAge));
+                throw new FormatException("Возраст не должен " +
+                    "содержать посторонних символов.");
             }
             return age;
+        }
+
+        /// <summary>
+        /// Метод получения элементов в списке экземпляров Person.
+        /// </summary>
+        public static void PrintList(PersonList personList)
+        {
+            if (personList.People.Count == 0)
+            {
+                Console.WriteLine("Список пуст.");
+                return;
+            }
+            foreach (Person person in personList.People)
+            {
+                Console.WriteLine(person.GetInfo());
+            }
+        }
+
+        /// <summary>
+        /// Метод распаковки actionList
+        /// </summary>
+        /// <param name="propertyHandeler">actionList</param>
+        private static void PersonPropertiesHandler(
+            PropertyHandler propertyHandeler)
+        {
+            var personField = propertyHandeler.PropertyName;
+            var personTypes = propertyHandeler.ExceptionTypes;
+            var personAction = propertyHandeler.PropertyHandlingAction;
+            Console.WriteLine($"Введите {personField} человека:");
+            while (true)
+            {
+                try
+                {
+                    personAction.Invoke();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    if (personTypes.Contains(ex.GetType()))
+                    {
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine($"Введите {personField} заново");
+                        continue;
+                    }
+                    throw ex;
+                }
+            }
         }
     }
 }

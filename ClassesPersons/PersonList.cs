@@ -8,15 +8,20 @@
         /// <summary>
         /// Список экземпляров Person.
         /// </summary>
-        /// //TODO: RSDN
-        private List<Person> people = new List<Person>();
+        /// //TODO: RSDN +
+        private List<Person> _people = new List<Person>();
+
+        /// <summary>
+        /// Получает список людей, хранящихся в данном объекте.
+        /// </summary>
+        public List<Person> People => _people;
 
         /// <summary>
         /// Метод добавления элементов списка.
         /// </summary>
         public void AddList(Person person)
         {
-            people.Add(person);
+            _people.Add(person);
         }
 
         /// <summary>
@@ -24,7 +29,7 @@
         /// </summary>     `
         public void RemoveList(Person person)
         {
-            people.Remove(person);
+            _people.Remove(person);
         }
 
         /// <summary>
@@ -32,12 +37,9 @@
         /// </summary>
         public void RemoveIndex(int index)
         {
-            //TODO: duplication
-            if (index < 0 || index >= people.Count)
-            {
-                throw new IndexOutOfRangeException("Индекс вне диапазона.");
-            }
-            people.RemoveAt(index);
+            //TODO: duplication +
+            ValidateIndex(index);
+            _people.RemoveAt(index);
         }
 
         /// <summary>
@@ -45,12 +47,21 @@
         /// </summary>
         public Person GetIndex(int index)
         {
-            //TODO: duplication
-            if (index >= people.Count || index < 0)
+            //TODO: duplication +
+            ValidateIndex(index);
+            return _people[index];
+        }
+
+        /// <summary>
+        /// Вспомогательный метод для проверки индекса на допустимость.
+        /// </summary>
+        private void ValidateIndex(int index)
+        {
+            if (index < 0 || index >= _people.Count)
             {
-                throw new IndexOutOfRangeException("Индекс вне диапазона.");
+                throw new IndexOutOfRangeException("Индекс" +
+                    " вне диапазона.");
             }
-            return people[index];
         }
 
         /// <summary>
@@ -58,7 +69,7 @@
         /// </summary>
         public int IndexElementFromList(Person person)
         {
-            return people.IndexOf(person);
+            return _people.IndexOf(person);
         }
 
         /// <summary>
@@ -66,29 +77,14 @@
         /// </summary>
         public void ClearList()
         {
-            people.Clear();
+            _people.Clear();
         }
 
         /// <summary>
         /// Определение количества элементов в списке.
         /// </summary>
-        public int Count => people.Count;
+        public int Count => _people.Count;
 
-        //TODO: remove
-        /// <summary>
-        /// Метод получения элементов в списке.
-        /// </summary>
-        public void PrintList()
-        {
-            if (people.Count == 0)
-            {
-                Console.WriteLine("Список пуст.");
-                return;
-            }
-            foreach (Person person in people)
-            {
-                Console.WriteLine(person.GetInfo());
-            }
-        }
+        //TODO: remove +
     }
 }
