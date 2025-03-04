@@ -37,7 +37,6 @@ namespace Persons
         /// </summary>
         public static Person ReadFromKeyboard()
         {
-            //TODO: rename +
             Person person = new Person();
 
             var actionList = new List<PropertyHandler>
@@ -81,10 +80,9 @@ namespace Persons
                     },
                     () => 
                     {
-                        //TODO: RSDN +
                         string genderString = Console.ReadLine();
                         GendorVerification(genderString);
-                        person.Gender = NumToGender(genderString); 
+                        person.Gender = StringToGender(genderString); 
                     }),
             };
 
@@ -195,7 +193,7 @@ namespace Persons
         /// <summary>
         /// Метод преобразования строки в тип перечисления.
         /// </summary>
-        private static Gender NumToGender(string strGender)
+        private static Gender StringToGender(string strGender)
         {
             switch (strGender.ToLower())
             {
