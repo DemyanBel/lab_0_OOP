@@ -10,26 +10,26 @@
         /// </summary>
         private List<Person> _people = new List<Person>();
 
-        //TODO: encapsulation
+        //TODO: encapsulation +
         /// <summary>
         /// Получает список людей, хранящихся в данном объекте.
         /// </summary>
-        public List<Person> People => _people;
+        private List<Person> People => _people;
 
-        //TODO: rename
+        //TODO: rename +
         /// <summary>
         /// Метод добавления элементов списка.
         /// </summary>
-        public void AddList(Person person)
+        public void Add(Person person)
         {
             _people.Add(person);
         }
 
-        //TODO: rename
+        //TODO: rename +
         /// <summary>
         /// Метод удаления элементов списка.
         /// </summary>     `
-        public void RemoveList(Person person)
+        public void Remove(Person person)
         {
             _people.Remove(person);
         }
@@ -46,7 +46,7 @@
         /// <summary>
         /// Метод получения элемента по индексу.
         /// </summary>
-        public Person GetIndex(int index)
+        public Person GetElement(int index)
         {
             ValidateIndex(index);
             return _people[index];
@@ -64,11 +64,11 @@
             }
         }
 
-        //TODO: rename
+        //TODO: rename +
         /// <summary>
         /// Метод возвращает индекс элемента в списке.
         /// </summary>
-        public int IndexElementFromList(Person person)
+        public int GetIndex(Person person)
         {
             return _people.IndexOf(person);
         }
@@ -76,7 +76,7 @@
         /// <summary>
         /// Метод очистки списка.
         /// </summary>
-        public void ClearList()
+        public void Clear()
         {
             _people.Clear();
         }

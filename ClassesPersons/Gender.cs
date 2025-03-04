@@ -9,10 +9,12 @@
         /// Мужской пол.
         /// </summary>
         Male,
+
         /// <summary>
         /// Женский пол.
         /// </summary>
         Female,
+
         /// <summary>
         /// Другой пол.
         /// </summary>

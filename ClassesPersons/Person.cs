@@ -43,8 +43,7 @@ namespace ClassPerson
             {
 
                 NameVerification(value, "Имя");
-                // Преобразования имени к нужному регистру
-                _firstName = FormatName(value);
+                _firstName = CapitalizeFirstLetter(value);
                 LanguageVerification();
             }
         }
@@ -58,8 +57,7 @@ namespace ClassPerson
             set
             {
                 NameVerification(value, "Фамилия");
-                // Преобразования фамилии к нужному регистру
-                _lastName = FormatName(value);
+                _lastName = CapitalizeFirstLetter(value);
                 LanguageVerification();
             }
         }
@@ -149,12 +147,12 @@ namespace ClassPerson
             }
         }
 
-        //TODO: rename
+        //TODO: rename +
         /// <summary>
         /// Преобразует строку таким образом, что первая буква всегда большая.
         /// </summary>
         /// <param name="word">Строка для преобразования.</param>
-        private static string FormatName(string word)
+        private static string CapitalizeFirstLetter(string word)
         {
             return CultureInfo.CurrentCulture.TextInfo.
                 ToTitleCase(word.ToLower());
@@ -192,8 +190,8 @@ namespace ClassPerson
                 else
                 {
                     //TODO: remake
-                    throw new ArgumentException($"Некорректный ввод." +
-                        $" Пожалуйста, попробуйте снова!");
+                    throw new ArgumentException($"Все симовыл имени " +
+                        $"и фамилии должын быть ан одном языке");
                 }
             }
 
@@ -243,37 +241,48 @@ namespace ClassPerson
                 "Дмитрий",
                 "Сергей" 
             };
-            string[] femaleNamesCyrillic = {
+            string[] femaleNamesCyrillic = 
+            {
                 "Анна",
                 "Екатерина",
                 "Ольга",
-                "Мария" };
-            string[] maleLastNamesCyrillic = {
+                "Мария" 
+            };
+            string[] maleLastNamesCyrillic =
+            {
                 "Иванов",
                 "Петров",
                 "Смирнов",
-                "Сидоров" };
-            string[] femaleLastNamesCyrillic = {
+                "Сидоров" 
+            };
+            string[] femaleLastNamesCyrillic = 
+            {
                 "Иванова",
                 "Петрова",
                 "Смирнова",
-                "Сидорова" };
-
-            string[] maleNamesLatin = {
+                "Сидорова" 
+            };
+            string[] maleNamesLatin = 
+            {
                 "John",
                 "Michael",
                 "David",
-                "William" };
-            string[] femaleNamesLatin = {
+                "William" 
+            };
+            string[] femaleNamesLatin = 
+            {
                 "Emily",
                 "Jessica",
                 "Sophia",
-                "Olivia" };
-            string[] lastNamesLatin = {
+                "Olivia" 
+            };
+            string[] lastNamesLatin = 
+            {
                 "Smith",
                 "Johnson",
                 "Brown",
-                "Taylor" };
+                "Taylor" 
+            };
 
             // Определяем случайный пол (0 - Male, 1 - Female, 2 - Other)
             Gender randomGender = (Gender)random.Next(3);
@@ -311,7 +320,6 @@ namespace ClassPerson
             return new Person(firstName, lastName, age, randomGender);
         }
 
-        //TODO: XML +
         /// <summary>
         /// Получает случайное имя/фамилию из предоставленных массивов, учитывая пол и язык.
         /// </summary>

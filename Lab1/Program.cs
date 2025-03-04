@@ -37,8 +37,8 @@ namespace Persons
         /// </summary>
         public static Person ReadFromKeyboard()
         {
-            //TODO: rename
-            Person personReader = new Person();
+            //TODO: rename +
+            Person person = new Person();
 
             var actionList = new List<PropertyHandler>
             {
@@ -49,7 +49,7 @@ namespace Persons
                         typeof(ArgumentException),
                         typeof(FormatException),
                     },
-                    () => { personReader.FirstName = Console.ReadLine(); }
+                    () => { person.FirstName = Console.ReadLine(); }
                     ),
                 new PropertyHandler(
                     "фамилию",
@@ -58,7 +58,7 @@ namespace Persons
                         typeof(ArgumentException),
                         typeof(FormatException),
                     },
-                    () => { personReader.LastName = Console.ReadLine(); }
+                    () => { person.LastName = Console.ReadLine(); }
                     ),
                 new PropertyHandler(
                     "возраст",
@@ -71,7 +71,7 @@ namespace Persons
                     {
                         string strAge = Console.ReadLine();
                         AgeVerification(strAge);
-                        personReader.Age = Convert.ToInt32(strAge);
+                        person.Age = Convert.ToInt32(strAge);
                     }),
                 new PropertyHandler(
                     "пол",
@@ -81,10 +81,10 @@ namespace Persons
                     },
                     () => 
                     {
-                        //TODO: RSDN
-                        string GenderString = Console.ReadLine();
-                        GendorVerification(GenderString);
-                        personReader.Gender = NumToGender(GenderString); 
+                        //TODO: RSDN +
+                        string genderString = Console.ReadLine();
+                        GendorVerification(genderString);
+                        person.Gender = NumToGender(genderString); 
                     }),
             };
 
@@ -92,7 +92,7 @@ namespace Persons
             {
                 PersonPropertiesHandler(actionList[i]);
             }
-            return personReader;
+            return person;
         }
 
         /// <summary>
@@ -108,13 +108,13 @@ namespace Persons
             PersonList list1 = new PersonList();
             PersonList list2 = new PersonList();
 
-            list1.AddList(new Person("Иван", "Иванов", 30, Gender.Male));
-            list1.AddList(new Person("Мария", "Петрова", 25, Gender.Female));
-            list1.AddList(new Person("Сергей", "Сидоров", 40, Gender.Male));
+            list1.Add(new Person("Иван", "Иванов", 30, Gender.Male));
+            list1.Add(new Person("Мария", "Петрова", 25, Gender.Female));
+            list1.Add(new Person("Сергей", "Сидоров", 40, Gender.Male));
 
-            list2.AddList(new Person("Andrey", "Mod", 54, Gender.Male));
-            list2.AddList(new Person("Aleksandra", "Medmon", 26, Gender.Female));
-            list2.AddList(new Person("Molli", "Kaum", 17, Gender.Female));
+            list2.Add(new Person("Andrey", "Mod", 54, Gender.Male));
+            list2.Add(new Person("Aleksandra", "Medmon", 26, Gender.Female));
+            list2.Add(new Person("Molli", "Kaum", 17, Gender.Female));
             
             // Пункт задания "b"
             Console.WriteLine("Нажмите любую клавишу, чтобы отобразить " +
@@ -132,7 +132,7 @@ namespace Persons
                 "человека в первый список.");
             Console.ReadKey();
             Console.WriteLine();
-            list1.AddList(new Person("Певел", "Арефьев", 23, Gender.Male));
+            list1.Add(new Person("Певел", "Арефьев", 23, Gender.Male));
             Console.WriteLine("\n\nСписок 1:");
             PrintList(list1);
             Console.WriteLine("\n\n");
@@ -142,7 +142,7 @@ namespace Persons
                 "второго человека из первого списка в конец второго списка.");
             Console.ReadKey();
             Console.WriteLine();
-            list2.AddList(list1.GetIndex(1));
+            list2.Add(list1.GetElement(1));
             Console.WriteLine("\n\nСписок 1:");
             PrintList(list1);
             Console.WriteLine("Список 2:");
@@ -154,7 +154,7 @@ namespace Persons
                 "удалить человека из первого списка.");
             Console.ReadKey();
             Console.WriteLine();
-            list1.RemoveList(list1.GetIndex(1));
+            list1.Remove(list1.GetElement(1));
             Console.WriteLine("\n\nСписок 1:");
             PrintList(list1);
             Console.WriteLine("Список 2:");
@@ -166,7 +166,7 @@ namespace Persons
                 "второй список.");
             Console.ReadKey();
             Console.WriteLine();
-            list2.ClearList();
+            list2.Clear();
             Console.WriteLine("\n\nСписок 2:");
             PrintList(list2);
         }
@@ -242,13 +242,14 @@ namespace Persons
         /// </summary>
         public static void PrintList(PersonList personList)
         {
-            if (personList.People.Count == 0)
+            if (personList.Count == 0)
             {
                 Console.WriteLine("Список пуст.");
                 return;
             }
-            foreach (Person person in personList.People)
+            for (int i = 0; i < personList.Count; i++)
             {
+                Person person = personList.GetElement(i);
                 Console.WriteLine(person.GetInfo());
             }
         }

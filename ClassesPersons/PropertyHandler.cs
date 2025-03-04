@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClassPerson
 {
-    //TODO: remove->Lab1
-    //TODO: XML
+    //TODO: remove->Lab1 
+    //TODO: XML +
+    /// <summary>
+    /// Класс, обрабатывающий ввод и проверку свойств объекта.
+    /// </summary>
     public class PropertyHandler
     {
         /// <summary>
