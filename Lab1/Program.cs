@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.ConstrainedExecution;
-using ClassPerson;
-using Microsoft.VisualBasic.FileIO;
+﻿using ClassPerson;
 
 namespace Persons
 {
@@ -38,11 +35,9 @@ namespace Persons
         /// <summary>
         /// Метод считывает данные о человеке с клавиатуры.
         /// </summary>
-        /// //TODO: XML
         public static Person ReadFromKeyboard()
         {
-            //TODO: duplication +
-
+            //TODO: rename
             Person personReader = new Person();
 
             var actionList = new List<PropertyHandler>
@@ -86,7 +81,7 @@ namespace Persons
                     },
                     () => 
                     {
-
+                        //TODO: RSDN
                         string GenderString = Console.ReadLine();
                         GendorVerification(GenderString);
                         personReader.Gender = NumToGender(GenderString); 
@@ -120,6 +115,7 @@ namespace Persons
             list2.AddList(new Person("Andrey", "Mod", 54, Gender.Male));
             list2.AddList(new Person("Aleksandra", "Medmon", 26, Gender.Female));
             list2.AddList(new Person("Molli", "Kaum", 17, Gender.Female));
+            
             // Пункт задания "b"
             Console.WriteLine("Нажмите любую клавишу, чтобы отобразить " +
                 "содержимое списков.");

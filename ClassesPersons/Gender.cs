@@ -5,7 +5,6 @@
     /// </summary>
     public enum Gender
     {
-        //TODO: XML +
         /// <summary>
         /// Мужской пол.
         /// </summary>

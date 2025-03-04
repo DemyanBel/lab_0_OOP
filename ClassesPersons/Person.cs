@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
-using System;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 
 namespace ClassPerson
 {
@@ -24,11 +22,6 @@ namespace ClassPerson
         /// Возраст персоны.
         /// </summary>
         private int _age;
-
-        /// <summary>
-        /// Пол персоны.
-        /// </summary>
-        private Gender _gender;
 
         /// <summary>
         /// Минимальный допустимый возраст.
@@ -64,7 +57,6 @@ namespace ClassPerson
             get => _lastName;
             set
             {
-                //TODO: refactor +
                 NameVerification(value, "Фамилия");
                 // Преобразования фамилии к нужному регистру
                 _lastName = FormatName(value);
@@ -92,7 +84,6 @@ namespace ClassPerson
             }
         }
 
-        //TODO: autoproperty +
         /// <summary>
         /// Свойство для получения и установки пола.
         /// </summary>
@@ -129,7 +120,6 @@ namespace ClassPerson
                 $"Возраст: {Age}, Пол: {Gender}";
         }
 
-        //TODO: RSDN +
         /// <summary>
         /// Регулярное выражение для проверки имени и фамилии.
         /// </summary>
@@ -137,14 +127,11 @@ namespace ClassPerson
             new Regex(@"^[a-zA-Zа-яА-Я]+(-[a-zA-Zа-яА-Я]+)?$",
                 RegexOptions.Compiled);
 
-        //TODO: encapsulation +
         /// <summary>
         /// Метод проверки имени и фамилии на соответствие заданным критериям.
         /// </summary>
         private void NameVerification(string GetName, string GetValueName)
         {
-            //TODO: RSDN +
-            //TODO: duplication +
             if (string.IsNullOrWhiteSpace(GetName))
             {
                 throw new ArgumentException($"Возможно вы " +
@@ -152,6 +139,7 @@ namespace ClassPerson
                     $" так же не должно быть пробелов " +
                     $"или null.", nameof(GetName));
             }
+
             if (!_nameRegex.IsMatch(GetName))
             {
                 throw new ArgumentException($"{GetValueName} должно содержать" +
@@ -161,6 +149,7 @@ namespace ClassPerson
             }
         }
 
+        //TODO: rename
         /// <summary>
         /// Преобразует строку таким образом, что первая буква всегда большая.
         /// </summary>
@@ -202,6 +191,7 @@ namespace ClassPerson
                 }
                 else
                 {
+                    //TODO: remake
                     throw new ArgumentException($"Некорректный ввод." +
                         $" Пожалуйста, попробуйте снова!");
                 }
@@ -245,14 +235,14 @@ namespace ClassPerson
             const int probabilityNameChance = 30;
             const int probabilityLastNameChance = 30;
 
-            //TODO: remove +
 
-            //TODO: RSDN +
-            string[] maleNamesCyrillic = {
+            string[] maleNamesCyrillic = 
+            {
                 "Алексей",
                 "Иван",
                 "Дмитрий",
-                "Сергей" };
+                "Сергей" 
+            };
             string[] femaleNamesCyrillic = {
                 "Анна",
                 "Екатерина",
@@ -291,7 +281,6 @@ namespace ClassPerson
             // Выбираем язык (0 - кириллица, 1 - латиница)
             bool isUsingCyrillic = random.Next(2) == 0;
 
-            //TODO: RSDN +
 
             string firstName = GetValueFromArrays(random,
                 maleNamesCyrillic, femaleNamesCyrillic,
@@ -303,21 +292,16 @@ namespace ClassPerson
                 lastNamesLatin, lastNamesLatin,
                 randomGender, isUsingCyrillic);
 
-            string usedName = firstName;
-            string usedLastName = lastName;
-
-            //TODO: duplication +
             firstName = GetValueFromDoubleArrays(random,
                 probabilityNameChance,
-                usedName, true, maleNamesCyrillic,
+                firstName, true, maleNamesCyrillic,
                 femaleNamesCyrillic, maleNamesLatin,
                 femaleNamesLatin, randomGender,
                 isUsingCyrillic);
 
-            //TODO: duplication +
             lastName = GetValueFromDoubleArrays(random,
                 probabilityLastNameChance,
-                usedLastName, false, maleLastNamesCyrillic,
+                lastName, false, maleLastNamesCyrillic,
                 femaleLastNamesCyrillic, lastNamesLatin,
                 lastNamesLatin, randomGender,
                 isUsingCyrillic);
@@ -376,6 +360,7 @@ namespace ClassPerson
         /// Получает случайное значение из предоставленного массива строк.
         /// </summary>
         /// <param name="random">Генератор случайных чисел.</param>
+        /// //TODO: RSDN
         /// <param name="NamesLanguage">Массив строк, из которого необходимо выбрать случайное значение.</param>
         /// <returns>Случайно выбранная строка из массива.</returns>
         private static string GetRandomValueFromList(Random random, string[] NamesLanguage)
@@ -402,49 +387,40 @@ namespace ClassPerson
         /// Составное имя или фамилия, если была добавлена вторая часть,
         /// или основное значение <paramref name="baseValue"/>, если вторая часть не была добавлена.
         /// </returns>
-        private static string GetValueFromDoubleArrays(Random random, int probabilityNameOrLastNameChance, string baseValue, bool isFirstName, string[] maleNamesCyrillic, string[] femaleNamesCyrillic, string[] maleNamesLatin, string[] femaleNamesLatin, Gender gender, bool isUsingCyrrillic)
+        private static string GetValueFromDoubleArrays(
+            Random random, int probabilityNameOrLastNameChance, 
+            string baseValue, bool isFirstName, 
+            string[] maleNamesCyrillic, string[] femaleNamesCyrillic, 
+            string[] maleNamesLatin, string[] femaleNamesLatin, 
+            Gender gender, bool isUsingCyrrillic)
         {
             if (random.Next(100) < probabilityNameOrLastNameChance)
             {
                 string secondNameOrLastName;
                 do
                 {
-                    if (isFirstName)
+                    var latinLastNames = isFirstName
+                        ? femaleNamesLatin
+                        : maleNamesLatin;
+                    
+                    switch (gender)
                     {
-                        switch (gender)
-                        {
-                            case Gender.Male:
-                                secondNameOrLastName = isUsingCyrrillic
-                                    ? GetRandomValueFromList(random, maleNamesCyrillic)
-                                    : GetRandomValueFromList(random, maleNamesLatin);
-                                break;
-                            default:
-                                secondNameOrLastName = isUsingCyrrillic
-                                    ? GetRandomValueFromList(random, femaleNamesCyrillic)
-                                    : GetRandomValueFromList(random, femaleNamesLatin);
-                                break;
-                        }
+                        case Gender.Male:
+                            secondNameOrLastName = isUsingCyrrillic
+                                ? GetRandomValueFromList(random, maleNamesCyrillic)
+                                : GetRandomValueFromList(random, maleNamesLatin);
+                            break;
+                        default:
+                            secondNameOrLastName = isUsingCyrrillic
+                                ? GetRandomValueFromList(random, femaleNamesCyrillic)
+                                : GetRandomValueFromList(random, latinLastNames);
+                            break;
                     }
-                    else
-                    {
-                        switch (gender)
-                        {
-                            case Gender.Male:
-                                secondNameOrLastName = isUsingCyrrillic
-                                    ? GetRandomValueFromList(random, maleNamesCyrillic)
-                                    : GetRandomValueFromList(random, maleNamesLatin);
-                                break;
-                            default:
-                                secondNameOrLastName = isUsingCyrrillic
-                                    ? GetRandomValueFromList(random, femaleNamesCyrillic)
-                                    : GetRandomValueFromList(random, maleNamesLatin);
-                                break;
-                        }
-                    }
+                    
                 }
                 while (secondNameOrLastName == baseValue);
-
-                    baseValue += "-" + secondNameOrLastName;
+                
+                baseValue += "-" + secondNameOrLastName;
 
                 return baseValue;
             }

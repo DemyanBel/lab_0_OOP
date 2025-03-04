@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClassPerson
 {
+    //TODO: remove->Lab1
+    //TODO: XML
     public class PropertyHandler
     {
         /// <summary>
