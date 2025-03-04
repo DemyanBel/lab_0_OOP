@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassPerson
+namespace Persons
 {
-    //TODO: remove->Lab1 
+    //TODO: remove->Lab1 + 
     //TODO: XML +
     /// <summary>
     /// Класс, обрабатывающий ввод и проверку свойств объекта.
