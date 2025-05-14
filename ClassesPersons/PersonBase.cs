@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 
 namespace ClassPerson
 {
-    //
     /// <summary>
     /// Класс PersonBase
     /// </summary>
