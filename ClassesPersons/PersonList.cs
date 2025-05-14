@@ -1,26 +1,26 @@
 ﻿namespace ClassPerson
 {
     /// <summary>
-    /// Класс, представляющий список экземпляров Person.
+    /// Класс, представляющий список экземпляров PersonBase.
     /// </summary>
     public class PersonList
     {
         /// <summary>
-        /// Список экземпляров Person.
+        /// Список экземпляров PersonBase.
         /// </summary>
-        private List<Person> _people = new List<Person>();
+        private List<PersonBase> _people = new List<PersonBase>();
 
         //TODO: encapsulation +
         /// <summary>
         /// Получает список людей, хранящихся в данном объекте.
         /// </summary>
-        private List<Person> People => _people;
+        private List<PersonBase> People => _people;
 
         //TODO: rename +
         /// <summary>
         /// Метод добавления элементов списка.
         /// </summary>
-        public void Add(Person person)
+        public void Add(PersonBase person)
         {
             _people.Add(person);
         }
@@ -29,7 +29,7 @@
         /// <summary>
         /// Метод удаления элементов списка.
         /// </summary>     `
-        public void Remove(Person person)
+        public void Remove(PersonBase person)
         {
             _people.Remove(person);
         }
@@ -46,7 +46,7 @@
         /// <summary>
         /// Метод получения элемента по индексу.
         /// </summary>
-        public Person GetElement(int index)
+        public PersonBase GetElement(int index)
         {
             ValidateIndex(index);
             return _people[index];
@@ -68,7 +68,7 @@
         /// <summary>
         /// Метод возвращает индекс элемента в списке.
         /// </summary>
-        public int GetIndex(Person person)
+        public int GetIndex(PersonBase person)
         {
             return _people.IndexOf(person);
         }
