@@ -74,8 +74,16 @@ namespace ClassesPersons
         /// </summary>
         private Adult _spouse;
 
-        // Статический dummy-объект
-        public static readonly Adult Dummy = CreateDummy();
+        /// <summary>
+        /// Ленивое создание объекта Dummy.
+        /// </summary>
+        private static readonly Lazy<Adult> _lazyDummy =
+            new Lazy<Adult>(CreateDummy);
+
+        /// <summary>
+        /// Объект Dummy.
+        /// </summary>
+        public static Adult Dummy => _lazyDummy.Value;
 
         /// <summary>
         /// Номер паспорта взрослого (101–999999).
@@ -160,14 +168,7 @@ namespace ClassesPersons
             PassportSeries = passportSeries;
             PassportNumber = passportNumber;
             Employer = employer;
-            if (spouse == null)
-            {
-                _spouse = this;
-            }
-            else
-            {
-                Spouse = spouse;
-            }
+            Spouse = spouse;
         }
 
         /// <summary>
@@ -178,19 +179,32 @@ namespace ClassesPersons
         { }
 
         /// <summary>
+        /// Приватный конструктор без spouse — используется для создания Dummy.
+        /// </summary>
+        private Adult(string firstName, string lastName, int age,
+            Gender gender, int passportSeries, int passportNumber,
+            string employer)
+            : base(firstName, lastName, age, gender)
+        {
+            PassportSeries = passportSeries;
+            PassportNumber = passportNumber;
+            Employer = employer;
+            _spouse = this;
+        }
+
+        /// <summary>
         /// Создаёт и возвращает dummy-объект Adult.
         /// </summary>
         private static Adult CreateDummy()
         {
             var dummy = new Adult(
-                firstName: "DUMMY_Имя",
-                lastName: "DUMMY_Фамилия",
+                firstName: "Имя",
+                lastName: "Фамилия",
                 age: 22,
                 gender: Gender.Male,
                 passportSeries: 102,
                 passportNumber: 100003,
-                spouse: null, // временно
-                employer: "DUMMY_Не работает"
+                employer: "Не работает"
             );
             dummy.Spouse = dummy;
             return dummy;
