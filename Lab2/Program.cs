@@ -8,6 +8,7 @@ namespace Persons
     /// </summary>
     internal class Program
     {
+        //TODO: RSDN
         /// <summary>
         /// Главный метод программы.
         /// </summary>

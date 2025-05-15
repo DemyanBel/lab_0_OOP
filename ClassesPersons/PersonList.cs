@@ -10,13 +10,12 @@
         /// </summary>
         private List<PersonBase> _people = new List<PersonBase>();
 
-        //TODO: encapsulation +
+        //TODO: remove
         /// <summary>
         /// Получает список людей, хранящихся в данном объекте.
         /// </summary>
         private List<PersonBase> People => _people;
 
-        //TODO: rename +
         /// <summary>
         /// Метод добавления элементов списка.
         /// </summary>
@@ -25,7 +24,6 @@
             _people.Add(person);
         }
 
-        //TODO: rename +
         /// <summary>
         /// Метод удаления элементов списка.
         /// </summary>     `
@@ -64,7 +62,6 @@
             }
         }
 
-        //TODO: rename +
         /// <summary>
         /// Метод возвращает индекс элемента в списке.
         /// </summary>

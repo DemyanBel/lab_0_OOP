@@ -1,9 +1,4 @@
 ﻿using ClassPerson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassesPersons
 {
@@ -22,6 +17,7 @@ namespace ClassesPersons
         /// </summary>
         private Adult _mother;
 
+        //TODO: rewrite
         /// <summary>
         /// Учебное заведение (школа или детский сад).
         /// </summary>
@@ -211,7 +207,7 @@ namespace ClassesPersons
             };
 
             string[] kindergartens =
-{
+            {
                 "KIDS", "TOTS", "BLOOM",
                 "LITE", "PLAY", "SMILE",
                 "GROW"

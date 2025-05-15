@@ -91,7 +91,7 @@ namespace ClassesPersons
         }
 
         /// <summary>
-        /// Серия и номер паспорта в формате СССС ННННН.
+        /// Серия и номер паспорта в формате СССС НННННH.
         /// </summary>
         public string PassportSeriesAndNumber
         {
@@ -113,6 +113,7 @@ namespace ClassesPersons
             }
         }
 
+        //TODO: validation
         /// <summary>
         /// Место работы взрослого.
         /// </summary>
