@@ -62,7 +62,14 @@ namespace ClassesPersons
         /// <summary>
         /// Свойство - учебное заведение (школа или детский сад)
         /// </summary>
-        public string EducationPlace { get; set; }
+        public string EducationPlace
+        {
+            get => _educationPlace;
+            set => _educationPlace = value
+                ?? throw new ArgumentNullException(
+                    nameof(EducationPlace), "Место учебы" +
+                    " не можетбыть null");
+        }
 
 
         /// <summary>
@@ -88,7 +95,7 @@ namespace ClassesPersons
         /// Конструктор для создания экземпляра класса Child без параметров.
         /// </summary>
         public Child() : this("Unknown", "Unknown", 11,
-            Gender.Male, null, null, null)
+            Gender.Male, Adult.Dummy, Adult.Dummy, "LDU")
         { }
 
         /// <summary>

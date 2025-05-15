@@ -63,6 +63,19 @@ namespace ClassesPersons
         /// Верхняя граница второй части серии.
         /// </summary>
         private const int SeriesPart2High = 25;
+        
+        /// <summary>
+        /// Место работы
+        /// </summary>
+        private string _employer;
+
+        /// <summary>
+        /// Супруг/супруга взрослого.
+        /// </summary>
+        private Adult _spouse;
+
+        // Статический dummy-объект
+        public static readonly Adult Dummy = CreateDummy();
 
         /// <summary>
         /// Номер паспорта взрослого (101–999999).
@@ -117,12 +130,24 @@ namespace ClassesPersons
         /// <summary>
         /// Место работы взрослого.
         /// </summary>
-        public string Employer { get; set; }
+        public string Employer
+        {
+            get => _employer;
+            set => _employer = value
+                ?? throw new ArgumentNullException(
+                    nameof(Employer), "Место работы не можетбыть null");
+        }
 
         /// <summary>
         /// Супруг/супруга взрослого.
         /// </summary>
-        public Adult Spouse { get; set; }
+        public Adult Spouse
+        {
+            get => _spouse;
+            set => _spouse = value
+                ?? throw new ArgumentNullException(
+                    nameof(Spouse), "Супруг/супруга не может быть null");
+        }
 
         /// <summary>
         /// Конструктор для создания экземпляра класса Adult.
@@ -135,15 +160,41 @@ namespace ClassesPersons
             PassportSeries = passportSeries;
             PassportNumber = passportNumber;
             Employer = employer;
-            Spouse = spouse;
+            if (spouse == null)
+            {
+                _spouse = this;
+            }
+            else
+            {
+                Spouse = spouse;
+            }
         }
 
         /// <summary>
         /// Конструктор по умолчанию.
         /// </summary>
         public Adult() : this("Unknown", "Unknown", 18,
-            Gender.Male, 101, 100000, null, null)
+            Gender.Male, 101, 100000, Dummy, "Не работает")
         { }
+
+        /// <summary>
+        /// Создаёт и возвращает dummy-объект Adult.
+        /// </summary>
+        private static Adult CreateDummy()
+        {
+            var dummy = new Adult(
+                firstName: "DUMMY_Имя",
+                lastName: "DUMMY_Фамилия",
+                age: 22,
+                gender: Gender.Male,
+                passportSeries: 102,
+                passportNumber: 100003,
+                spouse: null, // временно
+                employer: "DUMMY_Не работает"
+            );
+            dummy.Spouse = dummy;
+            return dummy;
+        }
 
         /// <summary>
         /// Информация о взрослом.
@@ -261,7 +312,7 @@ namespace ClassesPersons
             int tmpPassportNumber = 
                 random.Next(PassportLowBound, PassportHighBound + 1);
 
-            Adult tmpSpouse = null;
+            Adult tmpSpouse = Dummy;
             if (random.Next(1, 3) == 1)
             {
                 tmpSpouse = new Adult
@@ -276,7 +327,7 @@ namespace ClassesPersons
             }
 
             string? tmpEmployer = random.Next(1, 3) == 1 
-                ? employers[random.Next(employers.Length)] : null;
+                ? employers[random.Next(employers.Length)] : "Не работает";
 
             return new Adult(tmpName, tmpSurname, tmpAge,
                 gender, tmpPassportSeries, tmpPassportNumber,
