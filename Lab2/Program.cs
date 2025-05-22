@@ -8,11 +8,11 @@ namespace Persons
     /// </summary>
     internal class Program
     {
-        //TODO: RSDN
+        //TODO: RSDN +
         /// <summary>
         /// Главный метод программы.
         /// </summary>
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Нажмите любую клавишу для " +
                 "создания списка и добавления 7 человек.");
