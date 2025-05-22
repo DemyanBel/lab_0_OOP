@@ -134,7 +134,6 @@ namespace ClassesPersons
             }
         }
 
-        //TODO: validation
         /// <summary>
         /// Место работы взрослого.
         /// </summary>

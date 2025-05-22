@@ -10,12 +10,6 @@
         /// </summary>
         private List<PersonBase> _people = new List<PersonBase>();
 
-        //TODO: remove
-        /// <summary>
-        /// Получает список людей, хранящихся в данном объекте.
-        /// </summary>
-        private List<PersonBase> People => _people;
-
         /// <summary>
         /// Метод добавления элементов списка.
         /// </summary>

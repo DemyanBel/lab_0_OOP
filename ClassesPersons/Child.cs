@@ -17,7 +17,6 @@ namespace ClassesPersons
         /// </summary>
         private Adult _mother;
 
-        //TODO: rewrite
         /// <summary>
         /// Учебное заведение (школа или детский сад).
         /// </summary>
