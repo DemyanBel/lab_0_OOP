@@ -75,7 +75,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Вычисление объёма параллелепипеда
+        /// Свойство - вычисление объёма параллелепипеда
         /// </summary>
         /// <retutns>Объём паралеллепипеда</retutns>
         public override double Volume

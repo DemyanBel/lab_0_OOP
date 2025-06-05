@@ -15,7 +15,7 @@ namespace Model
         public abstract double Volume { get; }
 
         /// <summary>
-        /// Проверка числа
+        /// Метод проверки числа
         /// </summary>
         /// <param name="number">Число для проверки</param>
         /// <returns>Корректное число</returns>

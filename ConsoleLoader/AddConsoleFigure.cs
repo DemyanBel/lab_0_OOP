@@ -10,7 +10,7 @@ namespace ConsoleLoader
     public static class AddConsoleFigure
     {
         /// <summary>
-        /// Ввод данных о размерах параллелепипеда
+        /// Метод ввода данных о параллелепипеде
         /// </summary>
         /// <returns>Экземпляр класса параллелепипед</returns>
         public static Parallelepiped GetNewParallelepipedFromKeyboard()
@@ -42,7 +42,7 @@ namespace ConsoleLoader
         }
 
         /// <summary>
-        /// Ввод данных о пирамиде
+        /// Метод ввода данных о пирамиде
         /// </summary>
         /// <returns>Экземпляр класса пирамида</returns>
         public static Pyramid GetNewPyramidFromKeyboard()
@@ -70,7 +70,7 @@ namespace ConsoleLoader
         }
 
         /// <summary>
-        /// Ввод данных о шаре
+        /// Метод ввода данных о шаре
         /// </summary>
         /// <returns>Экземпляр класса шар</returns>
         public static Ball GetNewBallFromKeyboard()
@@ -90,7 +90,7 @@ namespace ConsoleLoader
         }
 
         /// <summary>
-        /// Чтение с консоли и преобразование в double
+        /// Метод чтения с консоли и преобразования в double
         /// </summary>
         public static double ReadFromConsoleAndParse()
         {
@@ -98,8 +98,8 @@ namespace ConsoleLoader
         }
 
         // <summary>
-        /// Получение пользовательского ввода
-        /// и задание параметра
+        /// Метод получения пользовательского ввода
+        /// и задания параметра
         /// </summary>
         public static void SetValue(Action action)
         {
