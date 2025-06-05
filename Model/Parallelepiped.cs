@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Figures
+namespace Model
 {
     /// <summary>
     /// Параллелепипед
@@ -27,7 +27,7 @@ namespace Model.Figures
         private double _height;
 
         /// <summary>
-        /// Длина
+        /// Свойство - длина
         /// </summary>
         public double Length
         {
@@ -43,7 +43,7 @@ namespace Model.Figures
         }
 
         /// <summary>
-        /// Ширина
+        /// Свойство - ширина
         /// </summary>
         public double Width
         {
@@ -59,7 +59,7 @@ namespace Model.Figures
         }
 
         /// <summary>
-        /// Высота
+        /// Свойство - высота
         /// </summary>
         public double Height
         {
