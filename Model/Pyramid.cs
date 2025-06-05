@@ -7,19 +7,14 @@ using System.Threading.Tasks;
 namespace Model
 {
     /// <summary>
-    /// Параллелепипед
+    /// Пирамида
     /// </summary>
-    public class Parallelepiped : FigureBase
+    public class Pyramid : FigureBase
     {
         /// <summary>
-        /// Длина
+        /// Площадь основания
         /// </summary>
-        private double _length;
-
-        /// <summary>
-        /// Ширина
-        /// </summary>
-        private double _width;
+        private double _baseArea;
 
         /// <summary>
         /// Высота
@@ -27,39 +22,23 @@ namespace Model
         private double _height;
 
         /// <summary>
-        /// Свойство - длина
+        /// Свойство - площадь основания пирамиды
         /// </summary>
-        public double Length
+        public double BaseArea
         {
             get
             {
-                return _length;
+                return _baseArea;
             }
             set
             {
                 CheckNumber(value);
-                _length = value;
+                _baseArea = value;
             }
         }
 
         /// <summary>
-        /// Свойство - ширина
-        /// </summary>
-        public double Width
-        {
-            get
-            {
-                return _width;
-            }
-            set
-            {
-                CheckNumber(value);
-                _width = value;
-            }
-        }
-
-        /// <summary>
-        /// Свойство - высота
+        /// Свойство - площадь основания пирамиды
         /// </summary>
         public double Height
         {
@@ -75,14 +54,15 @@ namespace Model
         }
 
         /// <summary>
-        /// Вычисление объёма параллелепипеда
+        /// Вычисление объема пирамиды
         /// </summary>
-        /// <retutns>Объём паралеллепипеда</retutns>
+        /// <retutns>Объём пирамиды</retutns>
+
         public override double Volume
         {
             get
             {
-                return Length * Width * Height;
+                return BaseArea * Height * 1 / 3;
             }
         }
     }
