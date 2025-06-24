@@ -263,7 +263,6 @@ namespace Lab4
                 _listForSearch.Add(e.SendingFigure);
             }
             DataGridFigureTools.CreateTable(_listForSearch, DataFigureView);
-            //DeleteFigureButton.Enabled = true;
             DropFilterButton.Enabled = true;
             SearchFigureButton.Enabled = false;
             AddFigureButton.Enabled = false;

@@ -14,7 +14,7 @@ namespace Model
     public static class RandomFigure
     {
         /// <summary>
-        /// Рандомайзер
+        /// Рандом
         /// </summary>
         private static Random _random = new Random();
 
@@ -34,7 +34,7 @@ namespace Model
         private const double DIVIDER = 10000.0;
 
         /// <summary>
-        /// Сгенерировать случайное число double через int
+        /// Генерация случайного числа double через int
         /// </summary>
         /// <param name="minValue">Минимальное значение</param>
         /// <param name="maxValue">Максимальное значение</param>
@@ -47,7 +47,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Сгенерировать случайную фигуру
+        /// Генерация случайной фигуры
         /// </summary>
         /// <returns>Сгенерированный объект класса FigureBase</returns>
         public static FigureBase GetRandomFigure()
@@ -76,7 +76,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Сгенерировать случайный параллелепипед
+        /// Генерация случайного параллелепипеда
         /// </summary>
         /// <returns>Случайный параллелепипед</returns>
         public static FigureBase GetRandomParallelepiped()
@@ -91,7 +91,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Сгенерировать случайную пирамиду
+        /// Генерация случайной пирамиды
         /// </summary>
         /// <returns>Случайная пирамида</returns>
         public static FigureBase GetRandomPyramid()
@@ -106,7 +106,7 @@ namespace Model
         }
 
         /// <summary>
-        /// Сгенерировать случайный шар
+        /// Генерация случайного шара
         /// </summary>
         /// <returns>Случайный шар</returns>
         public static FigureBase GetRandomBall()

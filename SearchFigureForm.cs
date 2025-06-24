@@ -112,7 +112,7 @@ namespace Lab4
         }
 
         /// <summary>
-        /// Закрыть форму
+        /// Закрытие формы
         /// </summary>
         private void CloseFormButton_Click(object sender, EventArgs e)
         {

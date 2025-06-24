@@ -6,8 +6,7 @@ using Model.Figures;
 namespace Model
 {
     /// <summary>
-    /// Базовый класс 
-    /// для всех объёмных фигур
+    /// Базовый класс для всех фигур
     /// </summary>
     [Serializable]
     [XmlInclude(typeof(Parallelepiped))]

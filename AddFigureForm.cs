@@ -194,7 +194,7 @@ namespace Lab4
         }
 
         /// <summary>
-        /// Установить значение свойствам экземпляра класса 
+        /// Установка значения свойствам экземпляра класса 
         /// Параллелепипед/Пирамида/Шар
         /// </summary>
         private void SetValue(Action action)
@@ -371,7 +371,7 @@ namespace Lab4
         }
         
         /// <summary>
-        /// Закрыть форму
+        /// Закрытие формы
         /// </summary>
         private void CloseFormButton_Click(object sender, EventArgs e)
         {
