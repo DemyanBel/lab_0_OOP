@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace Lab4
 {
     /// <summary>
-    /// Класс для тестирования библиотеки классов Model
+    /// Класс для тестирования библиотеки Model
     /// </summary>
     public class Program
     {
@@ -19,7 +19,6 @@ namespace Lab4
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-            //
         }
     }
 }
