@@ -121,7 +121,7 @@ namespace Lab4
             this.ToolStripDropDownButtonFile});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(303, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(283, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -176,7 +176,7 @@ namespace Lab4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 323);
+            this.ClientSize = new System.Drawing.Size(283, 323);
             this.Controls.Add(this.DeleteAllFugureButton);
             this.Controls.Add(this.DropFilterButton);
             this.Controls.Add(this.toolStrip1);

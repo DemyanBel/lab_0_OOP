@@ -116,9 +116,9 @@ namespace Lab4
             // 
             // ButtonShowFigure
             // 
-            this.ButtonShowFigure.Location = new System.Drawing.Point(18, 135);
+            this.ButtonShowFigure.Location = new System.Drawing.Point(12, 135);
             this.ButtonShowFigure.Name = "ButtonShowFigure";
-            this.ButtonShowFigure.Size = new System.Drawing.Size(83, 23);
+            this.ButtonShowFigure.Size = new System.Drawing.Size(89, 23);
             this.ButtonShowFigure.TabIndex = 1;
             this.ButtonShowFigure.Text = "Показать";
             this.ButtonShowFigure.UseVisualStyleBackColor = true;
@@ -128,7 +128,7 @@ namespace Lab4
             // 
             this.CloseFromButton.Location = new System.Drawing.Point(107, 135);
             this.CloseFromButton.Name = "CloseFromButton";
-            this.CloseFromButton.Size = new System.Drawing.Size(83, 23);
+            this.CloseFromButton.Size = new System.Drawing.Size(90, 23);
             this.CloseFromButton.TabIndex = 2;
             this.CloseFromButton.Text = "Закрыть";
             this.CloseFromButton.UseVisualStyleBackColor = true;
