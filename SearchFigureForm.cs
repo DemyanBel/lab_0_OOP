@@ -110,7 +110,7 @@ namespace Lab4
             CheckBoxBall.Checked = false;
             CheckBoxVolume.Checked = false;
         }
-        //
+
         /// <summary>
         /// Закрыть форму
         /// </summary>
