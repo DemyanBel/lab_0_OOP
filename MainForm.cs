@@ -188,6 +188,7 @@ namespace Lab4
             }
             catch (Exception)
             {
+                //TODO: вывести информацию о внутреннем исключении
                 MessageBox.Show("Файл повреждён или не " +
                     "соответствует формату.", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
