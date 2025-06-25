@@ -55,6 +55,7 @@ namespace Lab4
             DataGridFigureTools.CreateTable(_figureList, DataFigureView);
         }
 
+        //TODO: remove
         /// <summary>
         /// Проверка, существует ли фигура в списке
         /// </summary>
@@ -128,6 +129,7 @@ namespace Lab4
         /// </summary>
         private void DeleteFigureButton_Click(object sender, EventArgs e)
         {
+            //TODO: duplication
             if (_figureList.Count == 0)
             {
                 MessageBox.Show("Список фигур пуст.",
@@ -197,6 +199,7 @@ namespace Lab4
         /// </summary>
         private void SaveToolStripMenuItemClick(object sender, EventArgs e)
         {
+            //TODO: duplication
             if (_figureList.Count == 0)
             {
                 MessageBox.Show("Отсутствуют данные для сохранения.",
@@ -291,6 +294,7 @@ namespace Lab4
         /// </summary>
         private void DeleteAllFugureButton_Click(object sender, EventArgs e)
         {
+            //TODO: duplication
             if (_figureList.Count == 0)
             {
                 MessageBox.Show("Список фигур пуст.",

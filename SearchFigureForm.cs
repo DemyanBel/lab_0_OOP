@@ -63,10 +63,10 @@ namespace Lab4
         private void ButtonShowFigure_Click(object sender, EventArgs e)
         {
             int count = 0;
-            if (CheckBoxParallelepiped.Checked == false &&
-                CheckBoxPyramid.Checked == false &&
-                CheckBoxBall.Checked == false &&
-                CheckBoxVolume.Checked == false)
+            if (!CheckBoxParallelepiped.Checked &&
+                !CheckBoxPyramid.Checked &&
+                !CheckBoxBall.Checked &&
+                !CheckBoxVolume.Checked)
             {
                 MessageBox.Show("Вы не ввели критерии для поиска!");
                 return;

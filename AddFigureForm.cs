@@ -11,6 +11,7 @@ namespace Lab4
     /// </summary>
     public partial class AddFigureForm : Form
     {
+        //TODO: remove
         /// <summary>
         /// Словарь для сопоставления TextBox и Action
         /// </summary>
@@ -24,6 +25,7 @@ namespace Lab4
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+
             LengthTextbox.Visible = false;
             LengthLabel.Visible = false;
             WidthTextbox.Visible = false;
@@ -121,6 +123,7 @@ namespace Lab4
         {
             switch (figure)
             {
+                //TODO: refactor
                 case Parallelepiped _:
                 {
                     LengthTextbox.Visible = true;

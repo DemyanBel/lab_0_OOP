@@ -9,6 +9,7 @@ using System.ComponentModel;
 
 namespace Lab4
 {
+    //TODO: rewrite
     /// <summary>
     /// Класс для создания таблицы желаемого формата
     /// </summary>
