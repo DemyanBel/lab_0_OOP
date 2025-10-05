@@ -90,8 +90,7 @@ namespace Model.Figures
         {
             get 
             {
-                //BUG:
-                return Math.Round(Length * Width * Height * 1 / 3, 4);
+                return Length * Width * Height * 1 / 3;
             }
         }
     }

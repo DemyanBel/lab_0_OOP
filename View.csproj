@@ -55,7 +55,6 @@
     <Compile Include="AddFigureForm.Designer.cs">
       <DependentUpon>AddFigureForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataGridFigureTools.cs" />
     <Compile Include="FigureEventArgs.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

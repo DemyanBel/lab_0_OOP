@@ -52,56 +52,9 @@ namespace Lab4
         /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            DataGridFigureTools.CreateTable(_figureList, DataFigureView);
+            FigureGridConfigurator.CreateTable(_figureList, DataFigureView);
         }
 
-        //TODO: remove
-        /// <summary>
-        /// Проверка, существует ли фигура в списке
-        /// </summary>
-        /// <param name="newFigure">Новая фигура для проверки</param>
-        /// <returns>True, если фигура уже существует</returns>
-        private bool IsFigureDuplicate(FigureBase newFigure)
-        {
-            foreach (var existingFigure in _figureList)
-            {
-                if (newFigure.GetType() != existingFigure.GetType())
-                    continue;
-
-                switch (newFigure)
-                {
-                    case Parallelepiped newBox when existingFigure 
-                        is Parallelepiped existingBox:
-                        if (Math.Abs(newBox.Length - 
-                            existingBox.Length) < 0.0001 &&
-                            Math.Abs(newBox.Width - 
-                            existingBox.Width) < 0.0001 &&
-                            Math.Abs(newBox.Height - 
-                            existingBox.Height) < 0.0001)
-                            return true;
-                        break;
-
-                    case Pyramid newPyramid when existingFigure 
-                        is Pyramid existingPyramid:
-                        if (Math.Abs(newPyramid.Length - 
-                                existingPyramid.Length) < 0.0001 &&
-                            Math.Abs(newPyramid.Width - 
-                                existingPyramid.Width) < 0.0001 &&
-                            Math.Abs(newPyramid.Height - 
-                                existingPyramid.Height) < 0.0001)
-                            return true;
-                        break;
-
-                    case Ball newBall when existingFigure 
-                        is Ball existingBall:
-                        if (Math.Abs(newBall.Radius - 
-                                existingBall.Radius) < 0.0001)
-                            return true;
-                        break;
-                }
-            }
-            return false;
-        }
 
         /// <summary>
         /// Событие при добавлении фигуры
@@ -113,15 +66,28 @@ namespace Lab4
             if (figureForm.ShowDialog() == DialogResult.OK)
             {
                 var newFigure = figureForm.FigureData;
-                if (IsFigureDuplicate(newFigure))
-                {
-                    MessageBox.Show("Такая фигура уже " +
-                        "существует в списке!", "Ошибка",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
                 _figureList.Add(newFigure);
             }
+        }
+
+        /// <summary>
+        /// Метод проверки на пустоту списка
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        private bool EnsureFigureListNotEmpty(string message = null)
+        {
+            if (_figureList.Count == 0)
+            {
+                MessageBox.Show(
+                    message ?? "Список фигур пуст.",
+                    "Информация",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -129,14 +95,8 @@ namespace Lab4
         /// </summary>
         private void DeleteFigureButton_Click(object sender, EventArgs e)
         {
-            //TODO: duplication
-            if (_figureList.Count == 0)
-            {
-                MessageBox.Show("Список фигур пуст.",
-                    "Информация", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                return;
-            }
+            //TODO: duplication +
+            if (!EnsureFigureListNotEmpty()) return;
 
             if (DataFigureView.SelectedRows.Count == 0)
             {
@@ -156,6 +116,18 @@ namespace Lab4
             else
             {
                 _figureList.RemoveAt(selectedIndex);
+            }
+            if (_figureList.Count == 0)
+            {
+                DropFilterButton_Click(this, EventArgs.Empty);
+            }
+            else
+            {
+                // Сброс фильтра, когда отфильтрованный список пуст, а основной нет
+                if (_listForSearch.Count == 0 && DataFigureView.DataSource == _listForSearch)
+                {
+                    DropFilterButton_Click(this, EventArgs.Empty);
+                }
             }
         }
         
@@ -186,12 +158,13 @@ namespace Lab4
                     "Загрузка завершена",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO: вывести информацию о внутреннем исключении
-                MessageBox.Show("Файл повреждён или не " +
-                    "соответствует формату.", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TODO: вывести информацию о внутреннем исключении +
+                MessageBox.Show($"Файл повреждён или не соответствует " +
+                    $"формату.\n\nОшибка:\n{ex.Message}" +
+                    $"\n\nСтек вызовов:\n{ex.StackTrace}",
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
             }
         }
         
@@ -200,14 +173,8 @@ namespace Lab4
         /// </summary>
         private void SaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            //TODO: duplication
-            if (_figureList.Count == 0)
-            {
-                MessageBox.Show("Отсутствуют данные для сохранения.",
-                    "Данные не сохранены",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            //TODO: duplication +
+            if (!EnsureFigureListNotEmpty("Отсутствуют данные для сохранения.")) return;
 
             var saveFileDialog = new SaveFileDialog
             {
@@ -236,12 +203,6 @@ namespace Lab4
         private void RandomFigureButton_Click(object sender, EventArgs e)
         {
             var newFigure = RandomFigure.GetRandomFigure();
-            if (IsFigureDuplicate(newFigure))
-            {
-                MessageBox.Show("Такая фигура уже существует в списке!",
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
             _figureList.Add(newFigure);
         }
         
@@ -266,7 +227,7 @@ namespace Lab4
             {
                 _listForSearch.Add(e.SendingFigure);
             }
-            DataGridFigureTools.CreateTable(_listForSearch, DataFigureView);
+            FigureGridConfigurator.CreateTable(_listForSearch, DataFigureView);
             DropFilterButton.Enabled = true;
             SearchFigureButton.Enabled = false;
             AddFigureButton.Enabled = false;
@@ -281,7 +242,7 @@ namespace Lab4
         private void DropFilterButton_Click(object sender, EventArgs e)
         {
             DataFigureView.DataSource = null;
-            DataGridFigureTools.CreateTable(_figureList, DataFigureView);
+            FigureGridConfigurator.CreateTable(_figureList, DataFigureView);
             DeleteFigureButton.Enabled = true;
             SearchFigureButton.Enabled = true;
             AddFigureButton.Enabled = true;
@@ -295,14 +256,8 @@ namespace Lab4
         /// </summary>
         private void DeleteAllFugureButton_Click(object sender, EventArgs e)
         {
-            //TODO: duplication
-            if (_figureList.Count == 0)
-            {
-                MessageBox.Show("Список фигур пуст.",
-                    "Информация", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                return;
-            }
+            //TODO: duplication +
+            if (!EnsureFigureListNotEmpty()) return;
 
             var result = MessageBox.Show("Вы уверены, что " +
                 "хотите удалить все фигуры из списка?",
@@ -313,11 +268,48 @@ namespace Lab4
                 _figureList.Clear();
                 _listForSearch.Clear();
                 DataFigureView.DataSource = null;
-                DataGridFigureTools.CreateTable(_figureList, DataFigureView);
+                FigureGridConfigurator.CreateTable(_figureList, DataFigureView);
+
+                // Сброс фильтра
+                DropFilterButton_Click(this, EventArgs.Empty);
+
                 MessageBox.Show("Список фигур успешно очищен.",
                     "Успех", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
+        }
+    }
+
+    //TODO: rewrite +
+    /// <summary>
+    /// Класс для создания таблицы желаемого формата
+    /// </summary>
+    public static class FigureGridConfigurator
+    {
+        /// <summary>
+        /// Метод создания таблицы желаемого формата
+        /// </summary>
+        /// <param name="figures">Список конденсаторов</param>
+        /// <param name="dataGridView">Таблица с фигурами</param>
+        /// <summary>
+        /// Метод создания таблицы 
+        /// </summary>
+        public static void CreateTable(BindingList<FigureBase> figures,
+            DataGridView dataGridView)
+        {
+            dataGridView.DataSource = null;
+            dataGridView.DataSource = figures;
+            dataGridView.Columns[0].HeaderText = "Фигура";
+            dataGridView.Columns[1].HeaderText = "Объём (м)";
+            dataGridView.Columns[1].DefaultCellStyle.Format = "F3";
+            dataGridView.AutoSizeColumnsMode =
+               DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.ColumnHeadersDefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+            dataGridView.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
         }
     }
 }

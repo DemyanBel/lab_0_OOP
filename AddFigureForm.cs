@@ -11,12 +11,11 @@ namespace Lab4
     /// </summary>
     public partial class AddFigureForm : Form
     {
-        //TODO: remove
         /// <summary>
-        /// Словарь для сопоставления TextBox и Action
+        /// Словарь для установки видимости контролов. 
+        /// Все значения по умолчанию false.
         /// </summary>
-        private readonly Dictionary<TextBox, 
-            Action<FigureBase, double>> _textBoxValidationAction;
+        private readonly Dictionary<Control, bool> _defaultVisibilityDict;
 
         /// <summary>
         /// Инициализация формы и словаря
@@ -26,69 +25,17 @@ namespace Lab4
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
 
-            LengthTextbox.Visible = false;
-            LengthLabel.Visible = false;
-            WidthTextbox.Visible = false;
-            WidthLabel.Visible = false;
-            HeightTextbox.Visible = false;
-            HeigthLabel.Visible = false;
-            RadiusTextbox.Visible = false;
-            RadiusLabel.Visible = false;
-            _textBoxValidationAction = 
-                new Dictionary<TextBox, Action<FigureBase, double>>
+            // Инициализация дефолтных значений видимости (все false)
+            _defaultVisibilityDict = new Dictionary<Control, bool>
             {
-                {
-                    LengthTextbox,
-                    (figure, doubleValue) =>
-                    {
-                        if (figure is Parallelepiped parallelepiped)
-                        {
-                            parallelepiped.Length = doubleValue;
-                        }
-                        else if (figure is Pyramid pyramid)
-                        {
-                            pyramid.Length = doubleValue;
-                        }
-                    }
-                },
-                {
-                    WidthTextbox,
-                    (figure, doubleValue) =>
-                    {
-                        if (figure is Parallelepiped parallelepiped)
-                        {
-                            parallelepiped.Width = doubleValue;
-                        }
-                        else if (figure is Pyramid pyramid)
-                        {
-                            pyramid.Width = doubleValue;
-                        }
-                    }
-                },
-                {
-                    HeightTextbox,
-                    (figure, doubleValue) =>
-                    {
-                        if (figure is Parallelepiped parallelepiped)
-                        {
-                            parallelepiped.Height = doubleValue;
-                        }
-                        else if (figure is Pyramid pyramid)
-                        {
-                            pyramid.Height = doubleValue;
-                        }
-                    }
-                },
-                {
-                    RadiusTextbox,
-                    (figure, doubleValue) =>
-                    {
-                        if (figure is Ball ball)
-                        {
-                            ball.Radius = doubleValue;
-                        }
-                    }
-                }
+                { LengthTextbox, false },
+                { LengthLabel, false },
+                { WidthTextbox, false },
+                { WidthLabel, false },
+                { HeightTextbox, false },
+                { HeigthLabel, false },
+                { RadiusTextbox, false },
+                { RadiusLabel, false }
             };
             
             OkAddFigureButton.Enabled = false;
@@ -121,45 +68,39 @@ namespace Lab4
         /// <param name="figure">Фигура</param>
         private void MakeVisible(FigureBase figure)
         {
+            // Все контролы скрыты (false)
+            foreach (var ctrl in _defaultVisibilityDict.Keys)
+                ctrl.Visible = false;
+
             switch (figure)
             {
-                //TODO: refactor
+                //TODO: refactor +
                 case Parallelepiped _:
-                {
-                    LengthTextbox.Visible = true;
-                    LengthLabel.Visible = true;
-                    WidthTextbox.Visible = true;
-                    WidthLabel.Visible = true;
-                    HeightTextbox.Visible = true;
-                    HeigthLabel.Visible = true;
-                    RadiusTextbox.Visible = false;
-                    RadiusLabel.Visible = false;
-                    break;
-                }
+                    {
+                        LengthTextbox.Visible = true;
+                        LengthLabel.Visible = true;
+                        WidthTextbox.Visible = true;
+                        WidthLabel.Visible = true;
+                        HeightTextbox.Visible = true;
+                        HeigthLabel.Visible = true;
+                        break;
+                    }
                 case Pyramid _:
-                {
-                    LengthTextbox.Visible = true;
-                    LengthLabel.Visible = true;
-                    WidthTextbox.Visible = true;
-                    WidthLabel.Visible = true;
-                    HeightTextbox.Visible = true;
-                    HeigthLabel.Visible = true;
-                    RadiusTextbox.Visible = false;
-                    RadiusLabel.Visible = false;
-                    break;
-                }
+                    {
+                        LengthTextbox.Visible = true;
+                        LengthLabel.Visible = true;
+                        WidthTextbox.Visible = true;
+                        WidthLabel.Visible = true;
+                        HeightTextbox.Visible = true;
+                        HeigthLabel.Visible = true;
+                        break;
+                    }
                 case Ball _:
-                {
-                    RadiusTextbox.Visible = true;
-                    RadiusLabel.Visible = true;
-                    LengthTextbox.Visible = false;
-                    LengthLabel.Visible = false;
-                    WidthTextbox.Visible = false;
-                    WidthLabel.Visible = false;
-                    HeightTextbox.Visible = false;
-                    HeigthLabel.Visible = false;
-                    break;
-                }
+                    {
+                        RadiusTextbox.Visible = true;
+                        RadiusLabel.Visible = true;
+                        break;
+                    }
                 default:
                 {
                     throw new ArgumentException("Вы не выбрали " +

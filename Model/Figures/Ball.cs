@@ -48,9 +48,7 @@ namespace Model.Figures
         {
             get
             {
-                //BUG:
-                return Math.Round((4 / 3) * Math.PI *
-                    Math.Pow(Radius, 2), 4);
+                return (4.0 / 3) * Math.PI * Math.Pow(Radius, 3);
             }
         }
     }

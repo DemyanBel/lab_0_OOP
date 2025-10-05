@@ -68,8 +68,32 @@ namespace Lab4
                 !CheckBoxBall.Checked &&
                 !CheckBoxVolume.Checked)
             {
-                MessageBox.Show("Вы не ввели критерии для поиска!");
+                MessageBox.Show(
+                    "Не выбрано ни одного критерия фильтрации!\n" +
+                    "Выбор осуществляется постановкой флажка.",
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+
+            if (CheckBoxVolume.Checked)
+            {
+                if (string.IsNullOrWhiteSpace(TextBoxVolume.Text))
+                {
+                    MessageBox.Show(
+                        "Вы выбрали фильтрацию по объёму, " +
+                        "но не ввели значение объёма!",
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // Проверка, что введено число с запятой
+                decimal volume;
+                if (!decimal.TryParse(TextBoxVolume.Text, out volume))
+                {
+                    MessageBox.Show(
+                        "Некорректное значение объёма! Используйте число с запятой.",
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             foreach (FigureBase figures in _listFigureSearch)
@@ -97,14 +121,11 @@ namespace Lab4
             }
             if (count == 0)
             {
-                //TODO: разбить на разные типы сообщений по разным ситуациям
-                MessageBox.Show("Таких фигур нет или вы " +
-                    "ввели нечисловое значение при вводе объема. " +
-                    "В качестве разделителя используйте запятую.\n" +
-                    "Будьте внимательны!", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
+                //TODO: разбить на разные типы сообщений по разным ситуациям +
+                MessageBox.Show(
+                    "Нет ни одной фигуры, удовлетворяющей" +
+                    " выбранным критериям поиска.",
+                    "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             CheckBoxParallelepiped.Checked = false;
             CheckBoxPyramid.Checked = false;
