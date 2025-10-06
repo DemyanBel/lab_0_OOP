@@ -62,6 +62,9 @@ namespace Lab4
         /// <param name="e"></param>
         private void ButtonShowFigure_Click(object sender, EventArgs e)
         {
+            // Очищаем результаты предыдущего поиска
+            SendDataFromFormEvent?.Invoke(this, new FigureEventArgs(null));
+
             int count = 0;
             if (!CheckBoxParallelepiped.Checked &&
                 !CheckBoxPyramid.Checked &&
@@ -75,6 +78,12 @@ namespace Lab4
                 return;
             }
 
+            // Значение объёма, введённое пользователем для фильтрации.
+            double filterVolume = 0;
+
+            // Флаг, указывающий, используется ли фильтрация по объёму.
+            bool hasVolume = false;
+
             if (CheckBoxVolume.Checked)
             {
                 if (string.IsNullOrWhiteSpace(TextBoxVolume.Text))
@@ -85,46 +94,56 @@ namespace Lab4
                         "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
                 // Проверка, что введено число с запятой
-                decimal volume;
-                if (!decimal.TryParse(TextBoxVolume.Text, out volume))
+                if (!double.TryParse(TextBoxVolume.Text,
+                    System.Globalization.NumberStyles.Any,
+                    new System.Globalization.CultureInfo("ru-RU"),
+                    out filterVolume))
                 {
                     MessageBox.Show(
                         "Некорректное значение объёма! Используйте число с запятой.",
                         "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                filterVolume = Math.Round(filterVolume, 3);
+                hasVolume = true;
             }
 
             foreach (FigureBase figures in _listFigureSearch)
             {
-                switch (figures)
-                {
-                    case Parallelepiped _ when CheckBoxParallelepiped.Checked:
-                    case Pyramid _ when CheckBoxPyramid.Checked:
-                    case Ball _ when CheckBoxBall.Checked:
-                        {
-                            count++;
-                            SendDataFromFormEvent?.Invoke(this, 
-                                new FigureEventArgs(figures));
-                            break;
-                        }
-                }
+                bool matchType =
+                    (CheckBoxParallelepiped.Checked
+                    && figures is Parallelepiped) || 
+                    (CheckBoxPyramid.Checked && figures is Pyramid) ||
+                    (CheckBoxBall.Checked && figures is Ball);
 
-                if (CheckBoxVolume.Checked && figures.Volume.ToString().
-                    StartsWith(TextBoxVolume.Text))
+                // Если вообще ни один чекбокс типа не выбран — считаем,
+                // что matchType = true (разрешить любые типы)
+                if (!CheckBoxParallelepiped.Checked &&
+                    !CheckBoxPyramid.Checked &&
+                    !CheckBoxBall.Checked)
+                    matchType = true;
+
+                bool matchVolume = !hasVolume ||
+                    Math.Round(figures.Volume, 3) == filterVolume;
+
+                // Добавлять только если выполнены ВСЕ активные фильтры
+                if (matchType && matchVolume)
                 {
                     count++;
-                    SendDataFromFormEvent?.Invoke(this, 
+                    SendDataFromFormEvent?.Invoke(this,
                         new FigureEventArgs(figures));
                 }
             }
+
             if (count == 0)
             {
                 MessageBox.Show(
                     "Нет ни одной фигуры, удовлетворяющей" +
                     " выбранным критериям поиска.",
-                    "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    "Информация", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             CheckBoxParallelepiped.Checked = false;
             CheckBoxPyramid.Checked = false;

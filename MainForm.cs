@@ -25,6 +25,7 @@ namespace Lab4
             DataFigureView.AllowUserToAddRows = false;
             DataFigureView.RowHeadersVisible = false;
             DropFilterButton.Enabled = false;
+            DataFigureView.MultiSelect = false;
 
         }
 
@@ -210,6 +211,12 @@ namespace Lab4
         {
             var figureSearch = new SearchFigureForm(_figureList);
             figureSearch.SendDataFromFormEvent += AddSearchFigureEvent;
+            SearchFigureButton.Enabled = false;
+            figureSearch.FormClosed += (s, args) =>
+            {
+                // Активировать кнопку обратно после закрытия окна
+                SearchFigureButton.Enabled = true;
+            };
             figureSearch.Show();
         }
 
@@ -220,6 +227,11 @@ namespace Lab4
         /// <param name="e"></param>
         public void AddSearchFigureEvent(object sender, FigureEventArgs e)
         {
+            if (e.SendingFigure == null)
+            {
+                _listForSearch.Clear();
+                return;
+            }
             if (!_listForSearch.Contains(e.SendingFigure))
             {
                 _listForSearch.Add(e.SendingFigure);
