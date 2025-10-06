@@ -69,12 +69,13 @@ namespace Lab4
         private void MakeVisible(FigureBase figure)
         {
             // Все контролы скрыты (false)
+            //TODO: RSDN
             foreach (var ctrl in _defaultVisibilityDict.Keys)
                 ctrl.Visible = false;
 
             switch (figure)
             {
-                //TODO: refactor +
+                //TODO: RSDN
                 case Parallelepiped _:
                     {
                         LengthTextbox.Visible = true;

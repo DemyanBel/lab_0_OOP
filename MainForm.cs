@@ -95,7 +95,6 @@ namespace Lab4
         /// </summary>
         private void DeleteFigureButton_Click(object sender, EventArgs e)
         {
-            //TODO: duplication +
             if (!EnsureFigureListNotEmpty()) return;
 
             if (DataFigureView.SelectedRows.Count == 0)
@@ -160,7 +159,6 @@ namespace Lab4
             }
             catch (Exception ex)
             {
-                //TODO: вывести информацию о внутреннем исключении +
                 MessageBox.Show($"Файл повреждён или не соответствует " +
                     $"формату.\n\nОшибка:\n{ex.Message}" +
                     $"\n\nСтек вызовов:\n{ex.StackTrace}",
@@ -173,7 +171,6 @@ namespace Lab4
         /// </summary>
         private void SaveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            //TODO: duplication +
             if (!EnsureFigureListNotEmpty("Отсутствуют данные для сохранения.")) return;
 
             var saveFileDialog = new SaveFileDialog
@@ -256,7 +253,6 @@ namespace Lab4
         /// </summary>
         private void DeleteAllFugureButton_Click(object sender, EventArgs e)
         {
-            //TODO: duplication +
             if (!EnsureFigureListNotEmpty()) return;
 
             var result = MessageBox.Show("Вы уверены, что " +
@@ -280,7 +276,7 @@ namespace Lab4
         }
     }
 
-    //TODO: rewrite +
+  //TODO: remove
     /// <summary>
     /// Класс для создания таблицы желаемого формата
     /// </summary>
