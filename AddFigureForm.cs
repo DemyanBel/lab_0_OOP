@@ -69,39 +69,41 @@ namespace Lab4
         private void MakeVisible(FigureBase figure)
         {
             // Все контролы скрыты (false)
-            //TODO: RSDN
-            foreach (var ctrl in _defaultVisibilityDict.Keys)
-                ctrl.Visible = false;
+            //TODO: RSDN +
+            foreach (var control in _defaultVisibilityDict.Keys)
+            {
+                control.Visible = false;
+            }
 
             switch (figure)
             {
-                //TODO: RSDN
+                //TODO: RSDN +
                 case Parallelepiped _:
-                    {
-                        LengthTextbox.Visible = true;
-                        LengthLabel.Visible = true;
-                        WidthTextbox.Visible = true;
-                        WidthLabel.Visible = true;
-                        HeightTextbox.Visible = true;
-                        HeigthLabel.Visible = true;
-                        break;
-                    }
+                {
+                    LengthTextbox.Visible = true;
+                    LengthLabel.Visible = true;
+                    WidthTextbox.Visible = true;
+                    WidthLabel.Visible = true;
+                    HeightTextbox.Visible = true;
+                    HeigthLabel.Visible = true;
+                    break;
+                }
                 case Pyramid _:
-                    {
-                        LengthTextbox.Visible = true;
-                        LengthLabel.Visible = true;
-                        WidthTextbox.Visible = true;
-                        WidthLabel.Visible = true;
-                        HeightTextbox.Visible = true;
-                        HeigthLabel.Visible = true;
-                        break;
-                    }
+                {
+                    LengthTextbox.Visible = true;
+                    LengthLabel.Visible = true;
+                    WidthTextbox.Visible = true;
+                    WidthLabel.Visible = true;
+                    HeightTextbox.Visible = true;
+                    HeigthLabel.Visible = true;
+                    break;
+                }
                 case Ball _:
-                    {
-                        RadiusTextbox.Visible = true;
-                        RadiusLabel.Visible = true;
-                        break;
-                    }
+                {
+                    RadiusTextbox.Visible = true;
+                    RadiusLabel.Visible = true;
+                    break;
+                }
                 default:
                 {
                     throw new ArgumentException("Вы не выбрали " +

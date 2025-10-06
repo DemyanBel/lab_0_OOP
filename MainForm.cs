@@ -52,7 +52,7 @@ namespace Lab4
         /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            FigureGridConfigurator.CreateTable(_figureList, DataFigureView);
+            CreateTable(_figureList, DataFigureView);
         }
 
 
@@ -224,7 +224,7 @@ namespace Lab4
             {
                 _listForSearch.Add(e.SendingFigure);
             }
-            FigureGridConfigurator.CreateTable(_listForSearch, DataFigureView);
+            CreateTable(_listForSearch, DataFigureView);
             DropFilterButton.Enabled = true;
             SearchFigureButton.Enabled = false;
             AddFigureButton.Enabled = false;
@@ -239,7 +239,7 @@ namespace Lab4
         private void DropFilterButton_Click(object sender, EventArgs e)
         {
             DataFigureView.DataSource = null;
-            FigureGridConfigurator.CreateTable(_figureList, DataFigureView);
+            CreateTable(_figureList, DataFigureView);
             DeleteFigureButton.Enabled = true;
             SearchFigureButton.Enabled = true;
             AddFigureButton.Enabled = true;
@@ -264,7 +264,7 @@ namespace Lab4
                 _figureList.Clear();
                 _listForSearch.Clear();
                 DataFigureView.DataSource = null;
-                FigureGridConfigurator.CreateTable(_figureList, DataFigureView);
+                CreateTable(_figureList, DataFigureView);
 
                 // Сброс фильтра
                 DropFilterButton_Click(this, EventArgs.Empty);
@@ -274,14 +274,7 @@ namespace Lab4
                     MessageBoxIcon.Information);
             }
         }
-    }
 
-  //TODO: remove
-    /// <summary>
-    /// Класс для создания таблицы желаемого формата
-    /// </summary>
-    public static class FigureGridConfigurator
-    {
         /// <summary>
         /// Метод создания таблицы желаемого формата
         /// </summary>
@@ -290,7 +283,7 @@ namespace Lab4
         /// <summary>
         /// Метод создания таблицы 
         /// </summary>
-        public static void CreateTable(BindingList<FigureBase> figures,
+        private static void CreateTable(BindingList<FigureBase> figures,
             DataGridView dataGridView)
         {
             dataGridView.DataSource = null;
